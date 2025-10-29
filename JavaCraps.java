@@ -1,8 +1,63 @@
-public class JavaCraps { 
-    public static void main(String[] args){
+public class JavaCraps {
+    public static void main(String[] args) {
+        System.out.println("players turn");
+        boolean playerRun = play("Player");
+
+        System.out.println("Computers turn");
+        boolean computerRun = play("Computer");
+
+        System.out.println("--------Final result----------");
+        if (playerRun && !computerRun){
+        System.out.println("Player wins!");
+        }
+        else if (!playerRun && computerRun) {
+            System.out.println("Computer wins!");
+        }
+        else if (playerRun && computerRun) {
+            System.out.println("Both win!");
+        }
+        else {
+            System.out.println("Both loose :(");
+        }
+
         
+    }
+    public static boolean  play(String name){
+        int diceTotal = roll(name);
+        int point = 0;
+       
+        if (!(diceTotal !=  7 && diceTotal != 11)) {
+         System.out.println(name + "Wins!");
+         return true;
+         }
+        else if (!(diceTotal != 2 && diceTotal != 3 && diceTotal != 12)) {
+         System.out.println(name + "Looses!");
+         return false;
+         }
+         else if (!((diceTotal == 7) || (diceTotal == 11) || (diceTotal == 2) || (diceTotal == 3) || (diceTotal == 12))) {
+        System.out.println(name + "'s Point! --->" + diceTotal);
+            point = diceTotal;
+         }
+
+         while (true) {
+            diceTotal = roll(name);
+
+            if (diceTotal != point && diceTotal != 7) {
+                System.out.println(name + " is Rolling Again");
+            }
+            else if (!(diceTotal != point)) {
+                System.out.println(name + " rolled " + point + " again, " + name + " wins!");
+                return true;
+            }
+            else if (diceTotal == 7) {
+                System.out.println("SEVEN OUT!!" + name + "LOOSES");
+                return false;
+            }
+        }
+
+    }
+    public static int roll(String player) {
         int diceTotal = 0;
-        String wincondition = "";
         for (int i = 0; i < 2; i++) {
             int roll = (int) (Math.random()*6);
 
@@ -58,34 +113,8 @@ public class JavaCraps {
             System.out.println("____________");
             diceTotal += 6;
         }
-        System.out.println("You rolled a total of: " + diceTotal);
-        } 
-       gameState(wincondition, diceTotal);
-
-       if (wincondition == "Point") {
-        gameState(wincondition, diceTotal);
-        if (wincondition == "Win") {
-            System.out.println("You lose!(Seven Out!)");
         }
-       }
-
-     }
-
-     public static void gameState(String gamecondition, int roll) {
-
-     if (roll ==  7 || roll == 11) {
-        gamecondition = "Win";
-        System.out.println("You win!");
-     }
-     else if (roll == 2 || roll == 3 || roll == 12) {
-        gamecondition = "Loose";
-        System.out.print("You loose!");
-     }
-
-     else {
-        gamecondition = "Point";
-        System.out.println("Point!");
-     }   
-     }
-
-    }
+        System.out.println(player +" rolled a total of: " + diceTotal);
+    return diceTotal;
+}
+}
